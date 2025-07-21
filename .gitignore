@@ -1,0 +1,10 @@
+# Virtual Environment
+gradio_venv/
+
+# Python cache
+__pycache__/
+*.pyc
+
+# IDE/Editor specific
+.vscode/
+.idea/
