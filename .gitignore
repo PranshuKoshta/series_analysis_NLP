@@ -8,3 +8,6 @@ __pycache__/
 # IDE/Editor specific
 .vscode/
 .idea/
+
+*.ipynb_checkpoints
+.env
