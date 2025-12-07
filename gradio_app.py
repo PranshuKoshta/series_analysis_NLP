@@ -23,15 +23,18 @@ def get_themes(theme_list_str, subtitles_path, save_path):
     print("Classifier finished processing.")
 
     theme_list = [theme for theme in theme_list if theme != 'dialogue']
-    output_df = output_df[theme_list]
     
     if not theme_list:
         print("No valid themes found to plot.")
         # Return an empty plot figure
         return px.bar(title="No Themes Found")
+    
+    output_df = output_df[theme_list]
+    output_df = output_df.astype(float)
 
     output_df = output_df[theme_list].sum().reset_index()
     output_df.columns = ['Theme', 'Score']
+    output_df['Score'] = output_df['Score'].astype(float)
     print("Processing finished. Creating Plotly chart.")
     
     output_chart = px.bar(

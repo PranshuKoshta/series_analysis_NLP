@@ -1,4 +1,3 @@
-# theme_classifier.py
 
 from transformers import pipeline
 import torch
@@ -19,11 +18,11 @@ class ThemeClassifier():
     def __init__(self):
         print("Initializing ThemeClassifier and loading model...")
         self.model_name = "facebook/bart-large-mnli"
-        self.device = 0 if torch.cuda.is_available() else 'cpu'
+        self.device = 0 if torch.cuda.is_available() else -1
         self.classifier = self.load_model(self.device)
         print("Model loaded successfully.")
     
-    def load_model(self, device):
+    def load_model(self, device): 
         return pipeline(
             "zero-shot-classification",
             model=self.model_name,
@@ -34,19 +33,22 @@ class ThemeClassifier():
     def get_themes_inference(self, script, theme_list):
         script_sentences = sent_tokenize(script)
         
+        # Batch Sentence
         sentence_batch_size = 20
         script_batches = [
             " ".join(script_sentences[i:i + sentence_batch_size])
             for i in range(0, len(script_sentences), sentence_batch_size)
         ]
         
-        # Run Model on your test slice
+        # Run Model 
         theme_output = self.classifier(
             script_batches,
             theme_list,
             multi_label=True
         )
 
+
+        # wrangle outputs
         themes = {}
         for output in theme_output:
             for label, score in zip(output['labels'], output['scores']):
@@ -62,6 +64,8 @@ class ThemeClassifier():
             return pd.read_csv(save_path)
 
         df = load_subtitles_dataset(dataset_path)
+
+        df = df.iloc[:15].copy() # For testing purposes, limit to first row
 
         # Use a lambda function to pass the extra theme_list argument
         output_themes = df['script'].apply(lambda s: self.get_themes_inference(s, theme_list))
