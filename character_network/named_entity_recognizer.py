@@ -1,4 +1,7 @@
-import spacy
+try:
+    import spacy
+except:
+    spacy = None
 from nltk.tokenize import sent_tokenize
 import pandas as pd
 from ast import literal_eval
