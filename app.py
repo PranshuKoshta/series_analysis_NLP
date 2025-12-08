@@ -2,7 +2,7 @@ import gradio as gr
 import os
 from theme_classifier import ThemeClassifier
 from character_network import NamedEntityRecognizer, CharacterNetworkGenerator
-from text_classification import JutsuClassifier
+#from text_classification import JutsuClassifier
 import pandas as pd
 import plotly.express as px  
 
@@ -59,6 +59,8 @@ def get_character_network(subtitles_path,ner_path):
     return html
 
 def classify_text(text_classifcation_model,text_classifcation_data_path,text_to_classify):
+    from text_classification import JutsuClassifier 
+
     jutsu_classifier = JutsuClassifier(model_path = text_classifcation_model,
                                        data_path = text_classifcation_data_path,
                                        huggingface_token = os.getenv('huggingface_token'))
