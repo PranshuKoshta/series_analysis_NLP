@@ -1,19 +1,4 @@
 
----
-title: TV Series Analyser
-emoji: 📺
-colorFrom: purple
-colorTo: green
-sdk: gradio
-sdk_version: "4.44.1"
-app_file: app.py
-pinned: false
----
-
-# TV Series Analyser
-
-
-
 # AI-Powered TV Series Analyzer
 
 This project is an interactive web application that uses multiple NLP models to perform an in-depth analysis of a TV series. The system can scrape custom data, analyze character relationships, classify text, and identify narrative themes, all presented through a user-friendly Gradio interface.
